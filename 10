@@ -1,0 +1,44 @@
+# Load the ggplot2 library
+library(ggplot2)
+
+# Load the mtcars dataset
+data(mtcars)
+
+# Select four continuous variables from the mtcars dataset
+selected_variables <- c("mpg", "disp", "hp", "qsec")
+
+# Create a data frame with the selected variables
+selected_data <- mtcars[, selected_variables]
+
+# Reshape data to long format
+selected_data_long <- stack(selected_data)
+
+# Plot with lines and points for different variables with different colors
+ggplot(selected_data_long, aes(x = ind, y = values, group = ind, color = ind)) +
+  geom_line() +
+  geom_point(size = 3) +
+  labs(title = "Line and Point Plot for Different Variables",
+       x = "Variables",
+       y = "Values") +
+  theme_minimal()
+
+# Choose one variable from each and highlight it with different color
+highlight_vars <- c("mpg", "disp", "hp", "qsec") # Replace these with the variables you want to highlight
+highlight_colors <- c("red", "blue", "green", "orange") # Replace these with the colors you want for each variable
+
+# Reshape data to long format for highlighted variables
+selected_data_highlighted_long <- stack(selected_data)
+
+# Create a new column to indicate whether the variable should be highlighted or not
+selected_data_highlighted_long$highlight <- ifelse(selected_data_highlighted_long$ind %in% highlight_vars, "highlighted", "normal")
+
+# Plot with highlighted variables
+ggplot(selected_data_highlighted_long, aes(x = ind, y = values, group = ind, color = ind, shape = highlight)) +
+  geom_line() +
+  geom_point(size = 3) +
+  scale_shape_manual(values = c("highlighted" = 16, "normal" = 19)) +
+  scale_color_manual(values = highlight_colors) +
+  labs(title = "Line and Point Plot with Highlighted Variables",
+       x = "Variables",
+       y = "Values") +
+  theme_minimal()
