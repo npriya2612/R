@@ -1,0 +1,16 @@
+# Read the data from the file
+data <- read.table("table0.txt", header = TRUE, na.strings = c("--", "*", "**"))
+# Function to convert invalid values to NA for numeric columns
+convert_to_na <- function(x) {
+ if (is.na(as.numeric(x))) {
+ return(NA)
+ } else {
+ return(as.numeric(x))
+ }
+}
+# Convert Age, Height, and Weight columns to numeric, handling invalid entries
+data$Age <- sapply(data$Age, convert_to_na)
+data$Height <- sapply(data$Height, convert_to_na)
+data$Weight <- sapply(data$Weight, convert_to_na)
+# Print the resulting data frame
+print(data)
