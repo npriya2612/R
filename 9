@@ -1,0 +1,12 @@
+data(mtcars)
+plot(mtcars$mpg,mtcars$drat ,type = "l",
+     xlab = "Index",
+     ylab = "Miles per (US) gallon (mpg)",
+     main = "Line Plot of mpg")
+lines(mtcars$drat, col = "red")
+legend("topright", legend = c("mpg", "drat"), col = c("black", "red"), lty =1 )
+data(mtcars)
+plot(mtcars$mpg, mtcars$drat,
+     xlab = "Miles per (US) gallon (mpg)",
+     ylab = "Rear axle ratio (drat)",
+     main = "Scatterplot of mpg vs. drat")
