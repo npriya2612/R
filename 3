@@ -1,0 +1,30 @@
+#a
+class(state.x77)
+df2 <- data.frame(state.x77)
+
+#b
+nrow(df2[df2$Income < 5000,])
+
+#c
+row.names(df2[which.max(df2$Income),])
+row.names(df2[which.min(df2$Income),])
+
+#d
+df <- data.frame(state.abb, state.area, state.division, state.region, row.names = state.name)
+
+colnames(df) <- substr(colnames(df), 7, 9) 
+#g
+new.df <- cbind(state.x77,df)
+new.df$div <- NULL
+new.df <- subset(new.df, ,-c(4, 6, 7, 9, 10))
+new.df
+
+#e
+new.df$Illiteracy.Levels <- ifelse(new.df$Illiteracy >= 0 & new.df$Illiteracy < 1, "Low",ifelse(new.df$Illiteracy >= 1 & new.df$Illiteracy < 2, "Some", "High"))
+new.df
+
+#f
+x <- subset(new.df, reg == "West" & Illiteracy.Levels == "Low")
+
+row.names(x[which.max(x$Income),])
+new.df
